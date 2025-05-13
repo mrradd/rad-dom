@@ -1,0 +1,26 @@
+<html>
+  <head>
+    <script src="lib/js/rad_lib.js"></script>
+    <link rel="stylesheet" href="lib/themes/rad_reset_css.css">
+    <link rel="stylesheet" href="lib/themes/rad_theme.css">
+    <title>Test Index</title>
+  </head>
+  <body>
+    <div>
+      <button class="rad_button" onclick="goToBlog()">Go To Blog Demo</button>
+    </div>
+    <script>
+      function goToBlog() {
+        
+        const hostname = window.location.hostname;
+        if(hostname === "localhost") {
+          const host = window.location.host;
+          RadLib.radOpenNewTabAt({url:`demo_pages/blog/blog`});
+        }
+        else {
+          alert("Since this is a test site navigation only works for localhost.");
+        }
+      }
+    </script>
+  </body>
+</html>
