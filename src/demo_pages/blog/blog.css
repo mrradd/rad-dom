@@ -1,30 +1,42 @@
 :root {
-  --border-radius-mid: .25rem
+  --border-radius-mid: .25rem;
+  --padding-mid: .5rem;
+  --padding-large: .75rem;
+  --padding-big: 1rem;
 }
 
 .main_container {
   display: flex;
   justify-content: center;
+  background-color: black;
+  color: white;
+  font-family:'Courier New', Courier, monospace;
 }
 
 .blog_container {
-  max-height: 90vh;
   min-height: 90vh;
   min-width: 75vw;
   max-width: 75vw;
   display: grid;
   grid-template-areas:
     "header header header"
-    "nav content content"
+    "nav content blank"
     "footer footer footer";
-  grid-template-columns: .5fr 1fr 2fr;
+  grid-template-columns: .5fr 2fr .5fr;
   grid-template-rows: 10vh 50fr 5vh;
-  gap: .25rem
+  gap: .25rem;
+  border-width: 10px;
+  border-color: blue;
+}
+
+.blog_container > .content {
+  border-width: .1rem;
+  border-color: green;
+  border-style: solid
 }
 
 .header {
   grid-area: header;
-  background-color: red;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -32,7 +44,6 @@
 
 .nav {
   grid-area: nav;
-  background-color: green;
   display: flex;
   flex-direction: column;
   padding: 1rem;
@@ -42,18 +53,43 @@
 
 .content {
   grid-area: content;
-  background-color: antiquewhite;
+  display: flex;
+  flex-direction: column;
+  padding: var(--padding-big);
+
+}
+
+.content > * {
+  margin-bottom: 20px;
+}
+
+.content_image_container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.content_image_container > .content_image_caption {
+  font-style: italic;
 }
 
 .footer {
   grid-area: footer;
-  background-color: blueviolet;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.footer > a {
+  text-decoration: underline;
+  color: aquamarine;
 }
 
 .blog_nav_button {
   border: none;
-  padding: .25rem .25rem;
-  background-color: red;
+  padding: .5rem .25rem;
+  background-color: green;
   border-radius: var(--border-radius-mid);
   margin: .25rem;
 }

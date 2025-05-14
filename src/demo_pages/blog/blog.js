@@ -1,5 +1,10 @@
 const ClassNames = {
   blog_nav_button: "blog_nav_button",
+  content_image_caption: "content_image_caption",
+  content_image: "content_image",
+  content_image_container: "content_image_container",
+  content_blurb: "content_blurb",
+  content_image: "content_image"
 }
 
 /**
@@ -12,30 +17,54 @@ function ContentArea() {
   /**
    * Generates content dynamically based on a predefined JS object.
    */
-  const generateContent = () => {
-    Object.keys(BLOG_CONTENT).forEach((key, index, array) => {
+  const generateContent = (contentObj = {}) => {
+    Object.keys(contentObj).forEach((key, index, array) => {
       if(key.includes("_para_")) {
         let p = RadLib.radCreateElement({
           htmlTagName: "p",
-          classNames: ["content_blurb"],
-          innerText: BLOG_CONTENT[key],
+          classNames: [ClassNames.content_blurb],
+          innerText: contentObj[key],
         });
+
         contentRootNode.appendChild(p);
       }
       else if (key.includes("_img_")) {
+        let imgContainer = RadLib.radCreateElement({
+          htmlTagName: "div",
+          classNames: [ClassNames.content_image_container],
+        });
+
         let img = RadLib.radCreateElement({
           htmlTagName: "img",
           classNames: ["content_image"],
         });
-        img.setAttribute("src", BLOG_CONTENT[key].url);
-        img.setAttribute("alt", BLOG_CONTENT[key].altText);
-        contentRootNode.appendChild(img);
+        img.setAttribute("src", contentObj[key].url);
+        
+        if (contentObj[key].altText) {
+          img.setAttribute("alt", contentObj[key].altText);
+        }
+
+        let imgCaption = null;
+        if (contentObj[key].caption && contentObj[key].caption.length > 0){
+          imgCaption = RadLib.radCreateElement({
+            htmlTagName: "p",
+            classNames: [ClassNames.content_image_caption],
+            innerText: contentObj[key].caption
+          });
+        }
+        
+        imgContainer.appendChild(img);
+        if(imgCaption) {
+          imgContainer.appendChild(imgCaption);
+        }
+
+        contentRootNode.appendChild(imgContainer);
       }
     });
   }
 
   const render = () => {
-    generateContent();
+    generateContent(BLOG_CONTENT);
   }
 
   const exportObject = {
@@ -53,6 +82,14 @@ function FooterArea() {
   const footerRootNode = document.getElementById("footer_area");
 
   const render = () => {
+    let footerText = RadLib.radCreateElement({
+      htmlTagName: "a",
+      classNames: ["footer_text"],
+      innerText: "Powered by The Senator"
+    });
+
+    footerText.setAttribute("href", "https://thesenator.dev");
+    footerRootNode.appendChild(footerText);
   }
 
   const exportObject = {
@@ -73,7 +110,7 @@ function HeaderArea() {
     let pageTitle = RadLib.radCreateElement({
       htmlTagName: "h1",
       elementId: "page_title",
-      innerText: "Blog Page Demo (WIP)",
+      innerText: "Blog Page Demo",
     });
 
     headerRootNode.appendChild(pageTitle);
