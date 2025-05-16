@@ -2,7 +2,8 @@
  * Every function in this library is, and should stay, static.
  * 
  * TODO CH
- * > Make create img element function.
+ * > Make <img> element function.
+ * > Make <a> element function
  */
 class RadLib {
   static RAD_ELEMENT_IDS() {

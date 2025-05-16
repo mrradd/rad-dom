@@ -7,6 +7,11 @@ const ClassNames = {
   content_image: "content_image"
 }
 
+const Constants = {
+  _img_: "_img_",
+  _para_: "_para_",
+}
+
 /**
  * Handle's the Content Area of the blog page.
  * @returns 
@@ -19,7 +24,7 @@ function ContentArea() {
    */
   const generateContent = (contentObj = {}) => {
     Object.keys(contentObj).forEach((key, index, array) => {
-      if(key.includes("_para_")) {
+      if(key.includes(Constants._para_)) {
         let p = RadLib.radCreateElement({
           htmlTagName: "p",
           classNames: [ClassNames.content_blurb],
@@ -28,7 +33,7 @@ function ContentArea() {
 
         contentRootNode.appendChild(p);
       }
-      else if (key.includes("_img_")) {
+      else if (key.includes(Constants._img_)) {
         let imgContainer = RadLib.radCreateElement({
           htmlTagName: "div",
           classNames: [ClassNames.content_image_container],
@@ -36,7 +41,7 @@ function ContentArea() {
 
         let img = RadLib.radCreateElement({
           htmlTagName: "img",
-          classNames: ["content_image"],
+          classNames: [ClassNames.content_image],
         });
         img.setAttribute("src", contentObj[key].url);
         
@@ -164,7 +169,7 @@ function NavArea() {
         alert("Dolar Imet was pressed");
       },
     });
-   
+
     navTitleContainer.appendChild(navTitle);
     navRootNode.appendChild(navTitleContainer);
     navRootNode.appendChild(button1);
